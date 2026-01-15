@@ -1,0 +1,52 @@
+import json
+
+FILENAME = 'expenses.json'
+
+
+def add_expense():
+    print('Add Expense:')
+    amount = float(input('Amount: '))
+    category = input('Category: ')
+
+    new_expense = {
+        'amount': amount,
+        'category': category
+    }
+
+    with open(FILENAME) as f:
+        expenses = json.loads(f.read())
+
+    expenses.append(new_expense)
+
+    with open(FILENAME, 'w') as f:
+        f.write(json.dumps(expenses, indent=4))
+
+
+def show_expenses():
+    with open(FILENAME) as f:
+        expenses = json.loads(f.read())
+
+    print('All Expenses:')
+    for expense in expenses:
+        print(f'{expense["category"]}: {expense["amount"]:,.2f} so\'m')
+
+
+def main():
+    while True:
+        print('-----menu-----')
+        print('1. Add Expense')
+        print('2. Show Expenses')
+        print('0. Quit')
+
+        choice = input('> ')
+        if choice == '1':
+            add_expense()
+        elif choice == '2':
+            show_expenses()
+        elif choice == '0':
+            print('bye.')
+            break
+        else:
+            print('bunday menu mavjud emas.')
+
+main()
