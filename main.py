@@ -31,11 +31,16 @@ def show_expenses():
         print(f'{expense["category"]}: {expense["amount"]:,.2f} so\'m')
 
 
+def report_expenses():
+    pass
+
+
 def main():
     while True:
         print('-----menu-----')
         print('1. Add Expense')
         print('2. Show Expenses')
+        print('3. Report Expenses')
         print('0. Quit')
 
         choice = input('> ')
@@ -43,6 +48,8 @@ def main():
             add_expense()
         elif choice == '2':
             show_expenses()
+        elif choice == '3':
+            report_expenses()
         elif choice == '0':
             print('bye.')
             break
