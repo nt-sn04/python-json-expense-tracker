@@ -3,6 +3,13 @@ import json
 FILENAME = 'expenses.json'
 
 
+def read_data():
+    with open(FILENAME) as f:
+        expenses = json.loads(f.read())
+
+    return expenses
+
+
 def add_expense():
     print('Add Expense:')
     amount = float(input('Amount: '))
@@ -13,8 +20,7 @@ def add_expense():
         'category': category
     }
 
-    with open(FILENAME) as f:
-        expenses = json.loads(f.read())
+    expenses = read_data()
 
     expenses.append(new_expense)
 
@@ -23,8 +29,7 @@ def add_expense():
 
 
 def show_expenses():
-    with open(FILENAME) as f:
-        expenses = json.loads(f.read())
+    expenses = read_data()
 
     print('All Expenses:')
     for expense in expenses:
@@ -32,7 +37,14 @@ def show_expenses():
 
 
 def report_expenses():
-    pass
+    expenses = read_data()
+
+    groups = {}
+    for expense in expenses:
+        groups.setdefault(expense['category'], []).append(expense['amount'])
+
+    for group, amounts in groups.items():
+        print(group, sum(amounts))
 
 
 def main():
